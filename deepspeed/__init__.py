@@ -204,6 +204,7 @@ def initialize(args=None,
     return tuple(return_items)
 
 
+# 辅助性函数，用于将deepspeed的配置加入到parser中
 def _add_core_arguments(parser):
     r"""Helper (internal) function to update an argument parser with an argument group of the core DeepSpeed arguments.
         The core set of DeepSpeed arguments include the following:
@@ -217,6 +218,8 @@ def _add_core_arguments(parser):
     Return:
         parser: Updated Parser
     """
+
+    # 新建立一个group组，用于存放deepspeed的相关配置
     group = parser.add_argument_group('DeepSpeed', 'DeepSpeed configurations')
 
     group.add_argument('--deepspeed',
@@ -242,9 +245,11 @@ def _add_core_arguments(parser):
                        help="Run via MPI, this will attempt to discover the necessary variables to initialize torch "
                        "distributed from the MPI environment")
 
+    # 返回更新后的parser
     return parser
 
 
+# 加载deepspeed的配置到parser中，实际上是将deepspeed的相关配置新建一个group，新增到parser中
 def add_config_arguments(parser):
     r"""Update the argument parser to enabling parsing of DeepSpeed command line arguments.
         The set of DeepSpeed arguments include the following:
